@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>JavaScript</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid" style="background-color: rgb(59, 217, 223);">
+            <a class="navbar-brand" href="#">Digital Clock</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="jumbotron">
+            <div class="text-center ">
+                <img src="clock.jpg" class="rounded" alt="...">
+              </div>
+            <h1> <span id="time"></span></h1>
+            <p>Have a Nice Day.</p>
+
+            <div class="container" style="width: 30%;">
+                <label for="country-select" class="form-label">Select Country:</label>
+                <div class="custom-select-wrapper">
+                    <select class="form-select" id="country-select">
+                        <option selected>India</option>
+                        <option>United States</option>
+                        <option>United Kingdom</option>
+                        <option>Canada</option>
+                        <option>Australia</option>
+                        <option>China</option>
+                        <option>Germany</option>
+                        <option>France</option>
+                        <option>Japan</option>
+                        <option>Brazil</option>
+                        <option>Russia</option>
+                        <option>South Africa</option>
+                        <option>Italy</option>
+                        <option>Mexico</option>
+                        <option>Spain</option>
+                        <option>South Korea</option>
+                        <option>Singapore</option>
+                        <option>Saudi Arabia</option>
+                        <option>Argentina</option>
+                        <option>Nigeria</option>
+                        <option>New Zealand</option>
+                        <option>Thailand</option>
+                        <option>Vietnam</option>
+                        <option>Philippines</option>
+                        <option>Turkey</option>
+                        <option>United Arab Emirates</option>
+                        <option>Egypt</option>
+                        <option>Malaysia</option>
+                        <option>Pakistan</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            
+            $('#country-select').select2();
+
+            
+            const timeZones = {
+                'India': 'Asia/Kolkata',
+                'United States': 'America/New_York',
+                'United Kingdom': 'Europe/London',
+                'Canada': 'America/Toronto',
+                'Australia': 'Australia/Sydney',
+                'Germany': 'Europe/Berlin',
+                'Japan': 'Asia/Tokyo',
+                'Brazil': 'America/Sao_Paulo',
+                'South Africa': 'Africa/Johannesburg',
+                'Mexico': 'America/Mexico_City',
+                'France': 'Europe/Paris',
+                'Russia': 'Europe/Moscow',
+                'Italy': 'Europe/Rome',
+                'Spain': 'Europe/Madrid',
+                'South Korea': 'Asia/Seoul',
+                'Singapore': 'Asia/Singapore',
+                'Saudi Arabia': 'Asia/Riyadh',
+                'Argentina': 'America/Argentina/Buenos_Aires',
+                'Nigeria': 'Africa/Lagos',
+                'New Zealand': 'Pacific/Auckland',
+                'Thailand': 'Asia/Bangkok',
+                'Vietnam': 'Asia/Ho_Chi_Minh',
+                'Philippines': 'Asia/Manila',
+                'Turkey': 'Europe/Istanbul',
+                'United Arab Emirates': 'Asia/Dubai',
+                'Egypt': 'Africa/Cairo',
+                'Malaysia': 'Asia/Kuala_Lumpur',
+                'Pakistan': 'Asia/Karachi'
+            };
+
+           
+            function updateDateTime(country) {
+                const timeZone = timeZones[country];
+                if (timeZone) {
+                    const options = {
+                        timeZone: timeZone,
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        second: '2-digit',
+                        hour12: true
+                    };
+
+                    const dateTime = new Date().toLocaleString('en-US', options);
+                    $('#time').text(dateTime);
+                }
+            }
+
+            
+            updateDateTime($('#country-select').val());
+
+           
+            $('#country-select').change(function () {
+                const selectedCountry = $(this).val();
+                updateDateTime(selectedCountry);
+            });
+
+            
+            setInterval(function () {
+                updateDateTime($('#country-select').val());
+            }, 1000);
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
